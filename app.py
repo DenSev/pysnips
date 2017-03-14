@@ -1,8 +1,11 @@
-def main():
-    print("TEST TEST TEST")
-    file = open("d://mmy.csv", "r")
-    print(file.readline())
+from tkinter import *
+
+window = Tk()
+#window
+#lb = Label(window, text = " test text adsfasdfasdfasdfsadf")
+#lb.pack()
+window.mainloop()
 
 
-if __name__ == '__main__':
-    main()
+
+
