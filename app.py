@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, Response
+import geturls
 
 app = Flask(__name__)
 
@@ -21,6 +22,13 @@ tasks = [
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
     return jsonify({'tasks': tasks})
+
+
+@app.route('/api/urls', methods=['GET'])
+def get_urls():
+    url = request.args.get("url")
+    urls = geturls.get_urls(url, 0)
+    return Response(jsonify(urls), mimetype='application/json')
 
 
 if __name__ == '__main__':

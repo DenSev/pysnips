@@ -13,4 +13,4 @@ for url in urls_list.__getslice__(671, len(urls_list)-1):
 
     percent = num_downloaded / urls_list.__len__()
 
-    print percent.__str__() + "%, num downloaded: " + num_downloaded.__str__()
+    print(percent.__str__() + "%, num downloaded: " + num_downloaded.__str__())
