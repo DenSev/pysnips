@@ -3,7 +3,7 @@ import json
 import time
 
 rest_url = "https://api.tumblr.com/v2/blog/$BLOG_URL/posts/photo?api_key=$API_KEY&notes_info=false&reblog_info=" \
-           "false&filter=raw&offset=$OFFSET"
+           "false&filter=raw&offset=$OFFSET&limit=50"
 blog_url = ""
 api_key = "fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4"
 starting_offset = 0
@@ -16,16 +16,21 @@ def get_urls(url, offset):
 
     while has_content:
         rest_response = urllib.request.urlopen(new_rest_url.replace("$OFFSET", offset.__str__()))
+        print(new_rest_url.replace("$OFFSET", offset.__str__()))
         content = json.loads(rest_response.read())
         if content['meta']['status'] == 200:
             posts = content['response']['posts']
-            if len(posts) != 0:
+            total = content['response']['total_posts']
+            print(total)
+            if total > offset: #len(posts) != 0
+                print(total > offset)
+                time.sleep(300)
                 for index in range(len(posts)):
                     photos = posts[index]['photos']
                     for photo_index in range(len(photos)):
                         print(posts[index]['date'] + ": " + photos[photo_index]['original_size']['url'])
                         urls.append(photos[photo_index]['original_size']['url'])
-                offset += 20
+                offset += 50
             else:
                 has_content = False
             time.sleep(1)
